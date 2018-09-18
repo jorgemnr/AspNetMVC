@@ -1,0 +1,63 @@
+﻿@model ReservarSalaoFestas.Models.Agenda
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Confirma Deleção?</h2>
+<div>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.DataReserva)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DataReserva)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Clientes.Nome)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Clientes.Nome)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Evento)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Evento)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.QtdePessoas)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.QtdePessoas)
+		</dd>
+
+		@*<dt>
+			@Html.DisplayNameFor(model => model.DataAtualizacao)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DataAtualizacao)
+		</dd>
+		*@
+
+	</dl>
+
+	@using (Html.BeginForm())
+	{
+		@Html.AntiForgeryToken()
+
+		<div class="form-actions no-color">
+			<input type="submit" value="Deletar" class="btn btn-success" /> |
+			@Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-primary", @role = "button" })
+		</div>
+	}
+</div>
