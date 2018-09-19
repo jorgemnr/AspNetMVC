@@ -16,7 +16,7 @@ namespace ReservarSalaoFestas.Models
 
         [Display(Name = "Data da Reserva")]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         [Required(ErrorMessage = "A data é obrigatória", AllowEmptyStrings = false)]
         public DateTime DataReserva { get; set; }
 
