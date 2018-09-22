@@ -233,75 +233,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805062120234_Inicial.cs" />
-    <Compile Include="Migrations\201805062120234_Inicial.Designer.cs">
-      <DependentUpon>201805062120234_Inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805062130070_data.cs" />
-    <Compile Include="Migrations\201805062130070_data.Designer.cs">
-      <DependentUpon>201805062130070_data.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805062334019_agenda.cs" />
-    <Compile Include="Migrations\201805062334019_agenda.Designer.cs">
-      <DependentUpon>201805062334019_agenda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805070100215_agenda1.cs" />
-    <Compile Include="Migrations\201805070100215_agenda1.Designer.cs">
-      <DependentUpon>201805070100215_agenda1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805080121015_dataatualizacao.cs" />
-    <Compile Include="Migrations\201805080121015_dataatualizacao.Designer.cs">
-      <DependentUpon>201805080121015_dataatualizacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805080123169_dataatualizacao1.cs" />
-    <Compile Include="Migrations\201805080123169_dataatualizacao1.Designer.cs">
-      <DependentUpon>201805080123169_dataatualizacao1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201806171603362_cliente.cs" />
-    <Compile Include="Migrations\201806171603362_cliente.Designer.cs">
-      <DependentUpon>201806171603362_cliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809162002345_setembro.cs" />
-    <Compile Include="Migrations\201809162002345_setembro.Designer.cs">
-      <DependentUpon>201809162002345_setembro.cs</DependentUpon>
+    <Compile Include="Migrations\201809221807312_Inicial.cs" />
+    <Compile Include="Migrations\201809221807312_Inicial.Designer.cs">
+      <DependentUpon>201809221807312_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agenda.cs" />
     <Compile Include="Models\Clientes.cs" />
-    <Compile Include="Models\ReservarSalaoFestasContext.cs" />
+    <Compile Include="Models\SalaoFestasDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805062120234_Inicial.resx">
-      <DependentUpon>201805062120234_Inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805062130070_data.resx">
-      <DependentUpon>201805062130070_data.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805062334019_agenda.resx">
-      <DependentUpon>201805062334019_agenda.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805070100215_agenda1.resx">
-      <DependentUpon>201805070100215_agenda1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805080121015_dataatualizacao.resx">
-      <DependentUpon>201805080121015_dataatualizacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805080123169_dataatualizacao1.resx">
-      <DependentUpon>201805080123169_dataatualizacao1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201806171603362_cliente.resx">
-      <DependentUpon>201806171603362_cliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809162002345_setembro.resx">
-      <DependentUpon>201809162002345_setembro.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <EmbeddedResource Include="Migrations\201809221807312_Inicial.resx">
+      <DependentUpon>201809221807312_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

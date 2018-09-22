@@ -12,7 +12,7 @@ namespace ReservarSalaoFestas.Controllers
 {
     public class ClientesController : Controller
     {
-        private ReservarSalaoFestasContext db = new ReservarSalaoFestasContext();
+        private SlFestasDb db = new SlFestasDb();
 
         // GET: Clientes
         public ActionResult Index()

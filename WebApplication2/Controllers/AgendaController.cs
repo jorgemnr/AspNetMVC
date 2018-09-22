@@ -12,13 +12,14 @@ namespace ReservarSalaoFestas.Controllers
 {
     public class AgendaController : Controller
     {
-        private ReservarSalaoFestasContext db = new ReservarSalaoFestasContext();
+        private SlFestasDb db = new SlFestasDb();
 
         // GET: Agenda
         public ActionResult Index()
         {
             var agenda = db.Agenda.Include(a => a.Clientes);
-            return View(agenda.ToList().OrderByDescending(x => x.DataReserva ));
+            var lAgenda = agenda.ToList().OrderByDescending(x => x.DataReserva);
+            return View(lAgenda);
         }
 
         // GET: Agenda/Details/5
@@ -40,6 +41,8 @@ namespace ReservarSalaoFestas.Controllers
         public ActionResult Create()
         {
             ViewBag.ClienteId = new SelectList(db.Clientes, "ClienteId", "Nome");
+            ViewBag.DataInicial = DateTime.Today.ToString("yyyy-MM-dd");
+            ViewBag.DataFinal = DateTime.Today.AddMonths(6).ToString("yyyy-MM-dd");
             return View();
         }
 
@@ -74,6 +77,8 @@ namespace ReservarSalaoFestas.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClienteId = new SelectList(db.Clientes, "ClienteId", "Nome", agenda.ClienteId);
+            ViewBag.DataInicial = DateTime.Today.ToString("yyyy-MM-dd");
+            ViewBag.DataFinal = DateTime.Today.AddMonths(6).ToString("yyyy-MM-dd");
             return View(agenda);
         }
 

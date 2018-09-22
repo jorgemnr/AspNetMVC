@@ -33,10 +33,8 @@ namespace ReservarSalaoFestas.Models
         [Required(ErrorMessage = "O Número do Apto é obrigatório", AllowEmptyStrings = false)]
         public string Apto { get; set; }
 
-        [Display(Name = "Atualização")]
-        [Editable(false)]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
+        [ScaffoldColumn(false)]
+        //[DefaultValue("Getdate()")]
         public DateTime DataAtualizacao { get; set; }
 
         public virtual ICollection<Agenda> Agenda { get; set; }

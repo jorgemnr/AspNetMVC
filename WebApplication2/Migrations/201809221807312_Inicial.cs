@@ -10,15 +10,17 @@ namespace ReservarSalaoFestas.Migrations
             CreateTable(
                 "dbo.Agenda",
                 c => new
-                    {
-                        DataReservaId = c.DateTime(nullable: false),
-                        Evento = c.String(),
+                {
+                    AgendaId = c.Int(nullable: false, identity: true),
+                        DataReserva = c.DateTime(nullable: false),
+                        Evento = c.String(maxLength: 100),
                         QtdePessoas = c.Int(nullable: false),
                         ClienteId = c.Int(nullable: false),
                         DataAtualizacao = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.DataReservaId)
+                .PrimaryKey(t => t.AgendaId)
                 .ForeignKey("dbo.Clientes", t => t.ClienteId, cascadeDelete: true)
+                .Index(t => t.DataReserva, unique: true)
                 .Index(t => t.ClienteId);
             
             CreateTable(
@@ -27,6 +29,7 @@ namespace ReservarSalaoFestas.Migrations
                     {
                         ClienteId = c.Int(nullable: false, identity: true),
                         Nome = c.String(nullable: false, maxLength: 256),
+                        Senha = c.String(nullable: false, maxLength: 100),
                         Celular = c.String(maxLength: 15),
                         Apto = c.String(nullable: false, maxLength: 2),
                         DataAtualizacao = c.DateTime(nullable: false),
@@ -34,11 +37,12 @@ namespace ReservarSalaoFestas.Migrations
                 .PrimaryKey(t => t.ClienteId);
             
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Agenda", "ClienteId", "dbo.Clientes");
             DropIndex("dbo.Agenda", new[] { "ClienteId" });
+            DropIndex("dbo.Agenda", new[] { "DataReserva" });
             DropTable("dbo.Clientes");
             DropTable("dbo.Agenda");
         }
