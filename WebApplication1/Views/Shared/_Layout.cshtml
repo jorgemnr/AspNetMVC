@@ -9,14 +9,12 @@
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/bootstrap")
 	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
-	@RenderSection("scripts", required: false)
 	<!---*** Início: Para fazer funcionar o DatePicker ***--->
 	@Scripts.Render("~/bundles/jquery-ui")
 	@Scripts.Render("~/bundles/jquery-ui-i18n")
 	@Styles.Render("~/Content/jquery-ui")
 	<!---*** Fim: Para fazer funcionar o DatePicker ***--->
-
+	@*@Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
 	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,7 +33,6 @@
 					@*<li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>*@
 					<li>@Html.ActionLink("Sobre", "Sobre", "Home")</li>
 				</ul>
-				@Html.Partial("_LoginPartial")
 			</div>
 		</div>
 	</div>
@@ -48,23 +45,23 @@
 	</div>
 
 	@*@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	*@
-	
+		@Scripts.Render("~/bundles/bootstrap")
+			@RenderSection("scripts", required: false)*@
+
 	<!---*** Início: Anexar DatePicker no campo DataReserva ***--->
 	@*<script>
-			$(function () {
+		$(function () {
 
-				$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+			$.datepicker.setDefaults($.datepicker.regional['pt-BR']);
 
-				$("#DataReserva").datepicker({
-					showOtherMonths: true,
-					selectOtherMonths: true,
-					numberOfMonths: 1
-					//,dateFormat: 'dd/mm/yy'
-				});
+			$("#DataReserva").datepicker({
+				showOtherMonths: true,
+				selectOtherMonths: true,
+				numberOfMonths: 1
+				//,dateFormat: 'dd/mm/yy'
 			});
-		</script>*@
+		});
+	</script>*@
 	<!---*** Fim: Anexar DatePicker no campo DataReserva ***--->
 </body>
 </html>
