@@ -1,9 +1,7 @@
 ﻿@model ReservarSalaoFestas.Models.Agenda
-
 @{
-    ViewBag.Title = "Delete";
+	ViewBag.Title = "Delete";
 }
-
 <h2>Confirma Deleção?</h2>
 <div>
 	<hr />
@@ -11,46 +9,28 @@
 		<dt>
 			@Html.DisplayNameFor(model => model.DataReserva)
 		</dt>
-
 		<dd>
 			@Html.DisplayFor(model => model.DataReserva)
 		</dd>
-
 		<dt>
-			@Html.DisplayNameFor(model => model.Clientes.Nome)
+			@Html.DisplayNameFor(model => model.Cliente.NomeMorador)
 		</dt>
-
 		<dd>
-			@Html.DisplayFor(model => model.Clientes.Nome)
+			@Html.DisplayFor(model => model.Cliente.NomeMorador)
 		</dd>
-
 		<dt>
 			@Html.DisplayNameFor(model => model.Evento)
 		</dt>
-
 		<dd>
 			@Html.DisplayFor(model => model.Evento)
 		</dd>
-
 		<dt>
 			@Html.DisplayNameFor(model => model.QtdePessoas)
 		</dt>
-
 		<dd>
 			@Html.DisplayFor(model => model.QtdePessoas)
 		</dd>
-
-		@*<dt>
-			@Html.DisplayNameFor(model => model.DataAtualizacao)
-		</dt>
-
-		<dd>
-			@Html.DisplayFor(model => model.DataAtualizacao)
-		</dd>
-		*@
-
 	</dl>
-
 	@using (Html.BeginForm())
 	{
 		@Html.AntiForgeryToken()

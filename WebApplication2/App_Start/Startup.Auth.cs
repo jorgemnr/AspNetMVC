@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 //using Microsoft.Owin.Security.Google;
 using Owin;
-using WebApplication1.Models;
+using ReservarSalaoFestas.Models;
 
-namespace WebApplication1
+namespace ReservarSalaoFestas
 {
     public partial class Startup
     {
@@ -15,6 +15,7 @@ namespace WebApplication1
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure o contexto db, gerenciador de usuários e gerenciador de login para usar uma única instância por solicitação
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);

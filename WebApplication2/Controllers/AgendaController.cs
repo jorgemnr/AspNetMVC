@@ -1,24 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using ReservarSalaoFestas.Models;
 
 namespace ReservarSalaoFestas.Controllers
 {
+    [Authorize]
     public class AgendaController : Controller
     {
-        private SlFestasDb db = new SlFestasDb();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Agenda
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            var agenda = db.Agenda.Include(a => a.Clientes);
-            var lAgenda = agenda.ToList().OrderByDescending(x => x.DataReserva);
+            var agenda = db.Agenda.Include(a => a.Cliente);
+            var lAgenda = db.Agenda.ToList().OrderByDescending(x => x.DataReserva);
+            //buscar o apto do usuario autenticado
+            var Apto = "N";
+            if (User.Identity.IsAuthenticated)
+            {
+                Apto = (from d in db.Users
+                        where d.UserName == User.Identity.Name
+                        select d.Apto).First().ToString();
+            }
+            ViewBag.Apto = Apto;
             return View(lAgenda);
         }
 
@@ -40,7 +50,6 @@ namespace ReservarSalaoFestas.Controllers
         // GET: Agenda/Create
         public ActionResult Create()
         {
-            ViewBag.ClienteId = new SelectList(db.Clientes, "ClienteId", "Nome");
             ViewBag.DataInicial = DateTime.Today.ToString("yyyy-MM-dd");
             ViewBag.DataFinal = DateTime.Today.AddMonths(6).ToString("yyyy-MM-dd");
             return View();
@@ -51,16 +60,31 @@ namespace ReservarSalaoFestas.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AgendaId,DataReserva,Evento,QtdePessoas,ClienteId,DataAtualizacao")] Agenda agenda)
+        public ActionResult Create([Bind(Include = "AgendaId,DataReserva,Evento,QtdePessoas,UserId,DataAtualizacao")] Agenda agenda)
         {
             if (ModelState.IsValid)
             {
-                db.Agenda.Add(agenda);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var JaExisteReserva = (from a in db.Agenda
+                                       where a.DataReserva == agenda.DataReserva
+                                       select 1).Count();
+                if (JaExisteReserva > 0)
+                {
+                    ModelState.AddModelError("DataReserva", "Esta data já foi reservada! Favor escolher outra.");
+                }
+                else
+                {
+                    //buscar o UserId do usuario autenticado
+                    //{
+                    //    agenda.UserId = (from d in db.Users
+                    //                     where d.UserName == User.Identity.Name
+                    //    select d.Id).First().ToString();
+                    //}
+                    agenda.UserId = User.Identity.GetUserId();
+                    db.Agenda.Add(agenda);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
-            ViewBag.ClienteId = new SelectList(db.Clientes, "ClienteId", "Nome", agenda.ClienteId);
             return View(agenda);
         }
 
@@ -72,14 +96,23 @@ namespace ReservarSalaoFestas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Agenda agenda = db.Agenda.Find(id);
+
             if (agenda == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "ClienteId", "Nome", agenda.ClienteId);
+            //
+            var agendaEditView = new AgendaEditView
+            {
+                AgendaId = agenda.AgendaId,
+                DataReserva = agenda.DataReserva,
+                DataReservaOriginal = agenda.DataReserva,
+                Evento = agenda.Evento,
+                QtdePessoas = agenda.QtdePessoas
+            };
             ViewBag.DataInicial = DateTime.Today.ToString("yyyy-MM-dd");
             ViewBag.DataFinal = DateTime.Today.AddMonths(6).ToString("yyyy-MM-dd");
-            return View(agenda);
+            return View(agendaEditView);
         }
 
         // POST: Agenda/Edit/5
@@ -87,16 +120,37 @@ namespace ReservarSalaoFestas.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AgendaId,DataReserva,Evento,QtdePessoas,ClienteId")] Agenda agenda)
+        public ActionResult Edit([Bind(Include = "AgendaId,DataReserva,DataReservaOriginal,Evento,QtdePessoas,UserId")] AgendaEditView agenda)
         {
+
             if (ModelState.IsValid)
             {
-                agenda.DataAtualizacao = DateTime.Now;
-                db.Entry(agenda).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (agenda.DataReservaOriginal != agenda.DataReserva)
+                {
+                    var JaExisteReserva = (from a in db.Agenda
+                                           where a.DataReserva == agenda.DataReserva
+                                           select 1).Count();
+                    if (JaExisteReserva > 0)
+                    {
+                        ModelState.AddModelError("DataReserva", "Esta data já foi reservada! Favor escolher outra.");
+                    }
+                }
+                if (ModelState.IsValid)
+                {
+                    var agendaModel = new Agenda
+                    {
+                        AgendaId = agenda.AgendaId,
+                        UserId = User.Identity.GetUserId(),
+                        DataReserva = agenda.DataReserva,
+                        Evento = agenda.Evento,
+                        QtdePessoas = agenda.QtdePessoas,
+                        DataAtualizacao = DateTime.Now
+                    };
+                    db.Entry(agendaModel).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            ViewBag.ClienteId = new SelectList(db.Clientes, "ClienteId", "Nome", agenda.ClienteId);
             return View(agenda);
         }
 

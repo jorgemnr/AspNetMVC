@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.Models
+namespace ReservarSalaoFestas.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -64,13 +64,24 @@ namespace WebApplication1.Models
 
     public class RegisterViewModel
     {
+
+        [MaxLength(100), MinLength(5)]
+        [Display(Name = "Nome Morador")]
+        [Required(ErrorMessage = "O Nome Morador é obrigatório", AllowEmptyStrings = false)]
+        public string NomeMorador { get; set; }
+
+        [StringLength(2)]
+        [Display(Name = "Número Apto")]
+        [Required(ErrorMessage = "O Número Apto é obrigatório", AllowEmptyStrings = false)]
+        public string Apto { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "O/A {0} deve ter no mínimo {2} caracteres.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A {0} deve ter no mínimo {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
@@ -79,11 +90,6 @@ namespace WebApplication1.Models
         [Display(Name = "Confirmar Senha")]
         [Compare("Password", ErrorMessage = "A senha e a senha de confirmação não correspondem.")]
         public string ConfirmPassword { get; set; }
-
-        [StringLength(2)]
-        [Display(Name = "Número do Apto")]
-        [Required(ErrorMessage = "O Número do Apto é obrigatório", AllowEmptyStrings = false)]
-        public string Apto { get; set; }
     }
 
     public class ResetPasswordViewModel
