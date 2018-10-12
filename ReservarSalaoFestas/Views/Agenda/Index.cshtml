@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ReservarSalaoFestas.Models.Agenda>
+@{
+	ViewBag.Title = "Agenda";
+}
+<h2>Agenda Salão de Festas</h2>
+<hr />
+<p>
+	@Html.ActionLink("Criar Reserva", "Create", null, new { @class = "btn btn-success", @role = "button" })
+</p>
+<table class="table table-hover table-responsive">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.DataReserva)
+			</th>
+			@*<th>
+					@Html.DisplayNameFor(model => model.Cliente.NomeMorador)
+				</th>*@
+			<th>
+				@Html.DisplayNameFor(model => model.Evento)
+			</th>
+			@*<th class="text-center">
+					@Html.DisplayNameFor(model => model.QtdePessoas)
+				</th>*@
+			@if (ViewBag.Apto != "N")
+			{
+				<th class="text-center">
+					Ações
+				</th>
+			}
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.DataReserva)
+				</td>
+				@*<td>
+						@Html.DisplayFor(modelItem => item.Cliente.NomeMorador)
+					</td>*@
+				<td>
+					@Html.DisplayFor(modelItem => item.Evento)
+				</td>
+				@*<td class="text-center">
+						@Html.DisplayFor(modelItem => item.QtdePessoas)
+					</td>*@
+				@if (ViewBag.Apto == item.Cliente.Apto)
+				{
+					<td class="text-center">
+						@Html.ActionLink("Editar", "Edit", new { id = item.AgendaId }, new { @class = "btn btn-primary", @role = "button" }) |
+						@Html.ActionLink("Detalhes", "Details", new { id = item.AgendaId }, new { @class = "btn btn-primary", @role = "button" }) |
+						@Html.ActionLink("Deletar", "Delete", new { id = item.AgendaId }, new { @class = "btn btn-primary", @role = "button" })
+					</td>
+				}
+			</tr>
+		}
+	</tbody>
+</table>
