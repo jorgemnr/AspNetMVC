@@ -1,13 +1,11 @@
 ﻿html {
-	background: url(img/bg.jpg) no-repeat center center fixed;
-	background-size: cover;
+	background-color: antiquewhite;
 }
 
 body {
 	padding-top: 50px;
 	padding-bottom: 20px;
-	background: url(img/bg.jpg) no-repeat center center fixed;
-	background-size: cover;
+	background-color: antiquewhite;
 }
 
 /* Set padding to keep content from hitting the edges */
